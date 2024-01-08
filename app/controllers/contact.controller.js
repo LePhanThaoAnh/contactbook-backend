@@ -1,12 +1,10 @@
 const ApiError = require("../api-error");
 const ContactService = require("../services/contact.service");
 const MongoDB = require("../utils/mongodb.util");
-const ApiError = require("../api-error");
 
-
-exports.create = (req,res) =>{
-    res.send({message : "create handler"});
-};
+// exports.create = (req,res) =>{
+//     res.send({message : "create handler"});
+// };
 
 exports.findAll = async (req,res, next) =>{
     let document = [];
@@ -51,7 +49,7 @@ exports.update = async (req,res, next) =>{
 
     try{
         const contactService = new ContactService(MongoDB.client);
-        const documents = await contactService.update(req.params.id, req.body);
+        const document = await contactService.update(req.params.id, req.body);
         if(!document){
             return next(new ApiError(404,"Contact not found")); 
         }
@@ -109,8 +107,8 @@ exports.create = async (req, res,next) => {
     }
 
     try{
-        const ContactService = new ContactService(MongoDB.client);
-        const document = await ContactService.create(req.body);
+        const contactService = new ContactService(MongoDB.client);
+        const document = await contactService.create(req.body);
         return res.send(document);
     }catch(e){
         return next(

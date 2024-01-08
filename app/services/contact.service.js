@@ -19,8 +19,10 @@ class ContactService {
             };
 
         // Remove undefined fields
-            Objects.keys(contact).forEach(
-                (key) => contact[key] === undefined && delete contact[key]
+            Object.keys(contact).forEach(
+                (key) => {
+                    return contact[key] === undefined && delete contact[key]
+                }
             );
             return contact;
         }
@@ -61,7 +63,7 @@ class ContactService {
             { $set: update },
             { returnDocument: "after" }
             );
-            return result.value;
+            return result;
         }
 
         async delete(id) {
